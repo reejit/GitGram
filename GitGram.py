@@ -160,7 +160,7 @@ def git_api(groupid):
                 commit_msg = escape(commit['message']).split("\n")[0]
             else:
                 commit_msg = escape(commit['message'])
-            commits_text += f"{commit_msg}\nCommit ID:<a href='{commit['url']}'> by {commit['author']['url']}"
+            commits_text += f"{commit_msg}\nCommit ID:<a href='{commit['url']}'> by {commit['author']['name']}"
 
             if len(commits_text) > 1000:
                 text = f"""✨   <b>{escape(data['repository']['name'])}</b> - New {len(data['commits'])} commits for<b>{escape(data['repository']['name'])}</b> Updated Content:({escape(data['ref'].split('/')[-1])})
@@ -170,7 +170,7 @@ Extended Description: {commits_text}
                 commits_text = ""
         if not commits_text:
             return jsonify({"ok": True, "text": "Commits text is none"})
-        text = f"""✨ <b>{escape(data['repository']['name'])}</b> - New {len(data['commits'])} commits for<b>{escape(data['repository']['name'])}</b> Updated Content:({escape(data['ref'].split('/')[-1])})
+        text = f"""✨ New {len(data['commits'])} commits for<b>{escape(data['repository']['name'])}</b> Updated Content:({escape(data['ref'].split('/')[-1])})
 Extended Description: {commits_text}
 """
         if len(data['commits']) > 10:
@@ -180,7 +180,7 @@ Extended Description: {commits_text}
 
     if data.get('issue'):
         if data.get('comment'):
-            text = f"""💬 New comment: <b>{escape(data['repository']['name'])}</b>
+            text = f"""💬 New comment on  <b>{escape(data['repository']['name'])}</b>\n Message:
 {escape(data['comment']['body'])}
 
 <a href='{data['comment']['html_url']}'>Issue #{data['issue']['number']}</a>
