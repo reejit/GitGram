@@ -35,3 +35,6 @@ WORKDIR /workspace/GitGram
 
 # Install requirements
 RUN sudo pip3 install -U -r requirements.txt
+
+# Starting Worker
+CMD ["python3","python3","SaitamaRobot"]
